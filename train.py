@@ -23,7 +23,7 @@ if __name__ == '__main__':
     # hyperparameters
     parser.add_argument('--batchsize', type=int, default=32)
     parser.add_argument('--lr', type=float, default=0.01)
-    parser.add_argument('--epochs', type=int, default=30)
+    parser.add_argument('--epochs', type=int, default=15)
 
     # other
     parser.add_argument('--num_workers', type=int, default=4)
@@ -128,7 +128,7 @@ if __name__ == '__main__':
                        os.path.join(weights_save, f'weights_{epoch}.pth'))
 
             # Compute and save confusion matrix
-            confusion_matrix = metrics.confusion_matrix(true_label, pred_label, normalize=True)
+            confusion_matrix = metrics.confusion_matrix(true_label, pred_label, normalize='true')
             cm_display = metrics.ConfusionMatrixDisplay(confusion_matrix=confusion_matrix,
                                                         display_labels=['0', '1', '2', '3', '4', '5', '6', '7', '8',
                                                                         '9', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H',
