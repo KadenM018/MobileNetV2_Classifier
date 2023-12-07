@@ -8,14 +8,15 @@ from MobileNetV2 import MobileNetV2
 from tqdm import tqdm
 from sklearn import metrics
 import matplotlib.pyplot as plt
+from sklearn.metrics import f1_score
 
 if __name__ == '__main__':
 
     parser = argparse.ArgumentParser()
 
     # input data info
-    parser.add_argument('--train_dir', type=str, default=r"C:\Users\kaden\Main\CS678\final_project\ASL")
-    parser.add_argument('--val_dir', type=str, default=r"C:\Users\kaden\Main\CS678\final_project\0.1_test")
+    parser.add_argument('--train_dir', type=str, default=r"C:\Users\kaden\Main\CS678\final_project\sets\ASL")
+    parser.add_argument('--val_dir', type=str, default=r"C:\Users\kaden\Main\CS678\final_project\sets\0.1_test")
     parser.add_argument('--in_channels', type=int, default=3)
     parser.add_argument('--num_classes', type=int, default=36)
 
@@ -113,6 +114,9 @@ if __name__ == '__main__':
             val_acc.append(val_accuracy)
 
         if os.path.isdir(args.save_dir):
+            # Calcualte F1 score
+            fscore = f1_score(true_label, pred_label, average='micro', pos_label=None)
+
             # Make folders for save information
             cm_save = os.path.join(args.save_dir, 'cm')
             weights_save = os.path.join(args.save_dir, 'weights')
@@ -126,17 +130,27 @@ if __name__ == '__main__':
             # Compute and save confusion matrix
             confusion_matrix = metrics.confusion_matrix(true_label, pred_label)
             cm_display = metrics.ConfusionMatrixDisplay(confusion_matrix=confusion_matrix,
-                                                        display_labels=['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'])
-            cm_display.plot()
+                                                        display_labels=['0', '1', '2', '3', '4', '5', '6', '7', '8',
+                                                                        '9', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H',
+                                                                        'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q',
+                                                                        'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'])
+            fig, ax = plt.subplots(figsize=(25, 25))
+            cm_display.plot(ax=ax)
             plt.savefig(os.path.join(cm_save, f'confusion_matrix_{epoch}.jpg'))
+            plt.close()
 
             file_dir = os.path.join(args.save_dir, 'stats.txt')
             if os.path.isfile(file_dir):
                 f = open(file_dir, 'a')
             else:
                 f = open(file_dir, 'w')
+
             f.write(f'train_loss: {train_loss.detach().cpu().numpy().item()}, '
-                    f'val_loss: {val_loss.detach().cpu().numpy().item()}, val_acc: {val_accuracy.item()}\n')
+                    f'val_loss: {val_loss.detach().cpu().numpy().item()}, val_acc: {val_accuracy.item()}\n,'
+                    f' f1_score: {fscore}\n\n')
+            f.flush()
+
+
 
 
 
