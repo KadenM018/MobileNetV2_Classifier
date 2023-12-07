@@ -128,7 +128,7 @@ if __name__ == '__main__':
                        os.path.join(weights_save, f'weights_{epoch}.pth'))
 
             # Compute and save confusion matrix
-            confusion_matrix = metrics.confusion_matrix(true_label, pred_label)
+            confusion_matrix = metrics.confusion_matrix(true_label, pred_label, normalize=True)
             cm_display = metrics.ConfusionMatrixDisplay(confusion_matrix=confusion_matrix,
                                                         display_labels=['0', '1', '2', '3', '4', '5', '6', '7', '8',
                                                                         '9', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H',
@@ -146,7 +146,7 @@ if __name__ == '__main__':
                 f = open(file_dir, 'w')
 
             f.write(f'train_loss: {train_loss.detach().cpu().numpy().item()}, '
-                    f'val_loss: {val_loss.detach().cpu().numpy().item()}, val_acc: {val_accuracy.item()}\n,'
+                    f'val_loss: {val_loss.detach().cpu().numpy().item()}, val_acc: {val_accuracy.item()},'
                     f' f1_score: {fscore}\n\n')
             f.flush()
 
