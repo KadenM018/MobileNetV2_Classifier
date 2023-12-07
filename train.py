@@ -54,12 +54,14 @@ if __name__ == '__main__':
     val_l = []
     val_acc = []
     for epoch in range(0, args.epochs):
+        print(f'\n Epoch: {epoch}')
 
         train_loss = torch.zeros(1, device=args.device)
         model.train()
 
         # Train model
         for data in tqdm(train_dataloader, desc='Training MobileNetV2...'):
+
             optimizer.zero_grad()
             model.zero_grad()
 
@@ -105,7 +107,7 @@ if __name__ == '__main__':
                 for pred in preds:
                     pred_label.append(pred.detach().cpu().numpy())
 
-            # print(f'\nval_loss: {val_loss.detach().cpu().numpy()}, num_correct: {num_correct.detach().cpu().numpy() / len(val_dataset)}')
+            print(f'\nval_loss: {val_loss.detach().cpu().numpy()}, num_correct: {num_correct.detach().cpu().numpy() / len(val_dataset)}')
             val_l.append(val_loss.detach().cpu().numpy())
             val_accuracy = num_correct.detach().cpu().numpy() / len(val_dataset)
             val_acc.append(val_accuracy)
