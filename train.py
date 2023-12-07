@@ -14,22 +14,22 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
 
     # input data info
-    parser.add_argument('--train_dir', type=str, default=r"C:\Users\kaden\Downloads\ASL_digits\ASL Digits\asl_dataset_digits")
-    parser.add_argument('--val_dir', type=str, default=r"C:\Users\kaden\Downloads\ASL_digits\ASL Digits\test")
+    parser.add_argument('--train_dir', type=str, default=r"C:\Users\kaden\Main\CS678\final_project\ASL")
+    parser.add_argument('--val_dir', type=str, default=r"C:\Users\kaden\Main\CS678\final_project\0.1_test")
     parser.add_argument('--in_channels', type=int, default=3)
-    parser.add_argument('--num_classes', type=int, default=10)
+    parser.add_argument('--num_classes', type=int, default=36)
 
     # hyperparameters
-    parser.add_argument('--batchsize', type=int, default=16)
+    parser.add_argument('--batchsize', type=int, default=32)
     parser.add_argument('--lr', type=float, default=0.01)
-    parser.add_argument('--epochs', type=int, default=20)
+    parser.add_argument('--epochs', type=int, default=30)
 
     # other
-    parser.add_argument('--num_workers', type=int, default=1)
+    parser.add_argument('--num_workers', type=int, default=4)
     parser.add_argument('--device', type=str, default='cuda')
 
     # save directories
-    parser.add_argument('--save_dir', type=str, default=r"C:\Users\kaden\Main\CS678\final_project\1")
+    parser.add_argument('--save_dir', type=str, default=r"C:\Users\kaden\Main\CS678\final_project\tests\90-10_alldata_bs32_lr0.01")
 
     args = parser.parse_args()
 
