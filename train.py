@@ -124,7 +124,7 @@ if __name__ == '__main__':
             os.makedirs(cm_save, exist_ok=True)
 
             # Save parameters of current model
-            torch.save({'epoch': epoch, 'model': model.state_dict(), 'optim': optimizer.state_dict},
+            torch.save({'epoch': epoch, 'model': model.state_dict(), 'optim': optimizer.state_dict()},
                        os.path.join(weights_save, f'weights_{epoch}.pth'))
 
             # Compute and save confusion matrix
