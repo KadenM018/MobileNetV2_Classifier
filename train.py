@@ -28,6 +28,8 @@ if __name__ == '__main__':
     # other
     parser.add_argument('--num_workers', type=int, default=4)
     parser.add_argument('--device', type=str, default='cuda')
+    parser.add_argument('--resume', type=bool, default=True)
+    parser.add_argument('--resume_weights', type=str, default=r"C:\Users\kaden\Main\CS678\final_project\tests\90-10_alldata_bs32_lr0.01\weights\weights_0.pth")
 
     # save directories
     parser.add_argument('--save_dir', type=str, default=r"C:\Users\kaden\Main\CS678\final_project\tests\90-10_alldata_bs32_lr0.01")
@@ -46,15 +48,25 @@ if __name__ == '__main__':
     val_dataloader = DataLoader(val_dataset, args.batchsize, shuffle=False, num_workers=args.num_workers)
 
     model = MobileNetV2(args.in_channels, args.num_classes)
+    optimizer = torch.optim.SGD(model.parameters(), lr=args.lr)
+
+    if args.resume:
+        checkpoint = torch.load(args.resume_weights)
+        model.load_state_dict(checkpoint['model'])
+        optimizer.load_state_dict(checkpoint['optim'])
+        print('Weights Loaded\n')
+
     model.to(args.device)
 
-    optimizer = torch.optim.SGD(model.parameters(), lr=args.lr)
     criterion = torch.nn.CrossEntropyLoss()
 
     train_l = []
     val_l = []
     val_acc = []
     for epoch in range(0, args.epochs):
+        if args.resume:
+            epoch += checkpoint['epoch'] + 1
+
         print(f'\n Epoch: {epoch}')
 
         train_loss = torch.zeros(1, device=args.device)
@@ -149,9 +161,3 @@ if __name__ == '__main__':
                     f'val_loss: {val_loss.detach().cpu().numpy().item()}, val_acc: {val_accuracy.item()},'
                     f' f1_score: {fscore}\n\n')
             f.flush()
-
-
-
-
-
-
