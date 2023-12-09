@@ -2,6 +2,7 @@ import os
 import random
 import shutil
 from tqdm import tqdm
+import matplotlib.pyplot as plt
 
 
 def create_subset(dataset_folder, save_dir, ratio, op):
@@ -41,7 +42,27 @@ def create_subset(dataset_folder, save_dir, ratio, op):
                 shutil.copy(source, dest)
 
 
+def make_plot():
+    y1 = [0.749, 0.650, 0.474, 0.299, 0.185]  # lr=0.01
+    # y2 = [0.968, 0.984, 0.990, 0.992, 0.993]  # 0.001
+    # y3 = [0.978, 0.989, 0.994, 0.995, 0.996]  # lr=0.0001
+
+    x = [0, 1, 2, 3, 4]
+
+    plt.plot(x, y1, label='lr=0.01')
+    # plt.plot(x, y2, label='lr=0.001')
+    # plt.plot(x, y3, label='lr=0.0001')
+
+    plt.xlabel('Epoch')
+    plt.ylabel('F1 Score')
+    plt.legend()
+
+    plt.show()
+
+
 # create_subset(r"C:\Users\kaden\Main\CS678\final_project\sets\ASL",
 #               r"C:\Users\kaden\Main\CS678\final_project\sets\0.1_test",
 #               0.1, 'move')
+
+make_plot()
 
