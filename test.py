@@ -8,6 +8,7 @@ from MobileNetV2 import MobileNetV2
 from tqdm import tqdm
 from sklearn import metrics
 import matplotlib.pyplot as plt
+from sklearn.metrics import f1_score
 
 if __name__ == '__main__':
 
@@ -84,6 +85,8 @@ if __name__ == '__main__':
         test_acc.append(test_accuracy)
 
         if os.path.isdir(args.save_dir):
+            fscore = f1_score(true_label, pred_label, average='micro', pos_label=None)
+
             # Compute and save confusion matrix
             confusion_matrix = metrics.confusion_matrix(true_label, pred_label)
             cm_display = metrics.ConfusionMatrixDisplay(confusion_matrix=confusion_matrix,
@@ -94,4 +97,6 @@ if __name__ == '__main__':
             cm_display.plot()
             plt.savefig(os.path.join(args.save_dir, f'confusion_matrix.jpg'))
 
-            print(f'test_loss: {test_loss.detach().cpu().numpy().item()}, test_acc: {test_accuracy.item()}\n')
+            print(f'test_loss: {test_loss.detach().cpu().numpy().item()}, test_acc: {test_accuracy.item()},'
+                  f' f1_score: {fscore}\n\n')
+
