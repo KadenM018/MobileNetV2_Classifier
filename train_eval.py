@@ -119,8 +119,7 @@ def main():
         # Save only the best model by loss
         if val_loss[-1] < best_loss:
             best_loss = val_loss[-1]
-            if args.bestonly:
-                torch.save({'epoch': epoch, 'model': model.state_dict(), 'optim': optimizer.state_dict},
+            torch.save({'epoch': epoch, 'model': model.state_dict(), 'optim': optimizer.state_dict},
                            os.path.join(weights_save, f'best_weights.pth'))
 
         # Save parameters of current model every epoch

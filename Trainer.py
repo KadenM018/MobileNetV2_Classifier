@@ -55,7 +55,7 @@ def evaluate_model(dataloader, model, criterion, device='cuda', metric=None, los
         if loss_metric is None:
             val_loss = torch.zeros(1, device=device)
 
-        for batch in tqdm(dataloader, total=len(dataloader), desc='Testing MobileNetV2...'):
+        for batch in tqdm(dataloader, position=1, total=len(dataloader.dataset), desc='Testing MobileNetV2...'):
 
             in_data = batch[0].to(device)
             labels = batch[1].to(device)
@@ -72,5 +72,6 @@ def evaluate_model(dataloader, model, criterion, device='cuda', metric=None, los
             if metric is not None:
                 for m in metric:
                     m.update(out, labels)
-
-            return val_loss, loss_metric, metric
+                    
+        #make sure not to indent this return statement like an idiot!
+        return val_loss, loss_metric, metric
