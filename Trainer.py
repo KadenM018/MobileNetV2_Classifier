@@ -21,9 +21,9 @@ def train_model(dataloader, model, criterion, optimizer, device='cuda', metric=N
         in_data = batch[0].to(device)
         labels = batch[1].to(device)
 
-        out = model(in_data)
-
-        loss = criterion(out, labels)
+        with torch.autocast(device_type=device):
+            out = model(in_data)
+            loss = criterion(out, labels)
 
         if loss_metric:
             loss_metric.update(loss.detach(), weight=weight)
@@ -44,7 +44,7 @@ def train_model(dataloader, model, criterion, optimizer, device='cuda', metric=N
 
 
 def evaluate_model(dataloader, model, criterion, device='cuda', metric=None, loss_metric=None):
-    #weight for avg loss
+    # weight for avg loss
     weight = len(dataloader.dataset)
     val_loss = None
 
@@ -55,23 +55,24 @@ def evaluate_model(dataloader, model, criterion, device='cuda', metric=None, los
         if loss_metric is None:
             val_loss = torch.zeros(1, device=device)
 
-        for batch in tqdm(dataloader, position=1, total=len(dataloader.dataset), desc='Testing MobileNetV2...'):
+        with torch.autocast(device_type="cuda"):
+            for batch in tqdm(dataloader, desc='Testing MobileNetV2...'):
 
-            in_data = batch[0].to(device)
-            labels = batch[1].to(device)
+                in_data = batch[0].to(device)
+                labels = batch[1].to(device)
 
-            out = model(in_data)
+                out = model(in_data)
 
-            loss = criterion(out, labels)
+                loss = criterion(out, labels)
 
-            if loss_metric is None:
-                val_loss += loss
-            else:
-                loss_metric.update(loss.detach(), weight=weight)
+                if loss_metric is None:
+                    val_loss += loss
+                else:
+                    loss_metric.update(loss.detach(), weight=weight)
 
-            if metric is not None:
-                for m in metric:
-                    m.update(out, labels)
-                    
-        #make sure not to indent this return statement like an idiot!
+                if metric is not None:
+                    for m in metric:
+                        m.update(out, labels)
+
+        # make sure not to indent this return statement like an idiot!
         return val_loss, loss_metric, metric

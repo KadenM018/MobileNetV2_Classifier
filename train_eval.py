@@ -19,6 +19,9 @@ def main():
     parser = argparse.ArgumentParser()
     args = add_args(parser)
 
+    # I've got a need, a need for speeeeeeed
+    torch.backends.cudnn.benchmark = True
+
     # transforms for training data
     transform_train = torchvision.transforms.Compose([
         torchvision.transforms.ToTensor(),
@@ -62,7 +65,7 @@ def main():
     model.to(args.device)
 
     # select our optimizer
-    optimizer = torch.optim.SGD(model.parameters(), lr=args.lr)
+    optimizer = torch.optim.AdamW(model.parameters(), lr=args.lr)
     criterion = torch.nn.CrossEntropyLoss()
 
     # create metrics
