@@ -93,6 +93,7 @@ def main():
     val_conf = None
 
     best_loss = 9999999.
+
     for epoch in range(0, args.epochs):
         print(f'\n Epoch: {epoch}')
 

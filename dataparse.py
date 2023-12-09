@@ -25,6 +25,9 @@ def add_args(parser):
     # save directories
     parser.add_argument('--save_dir', type=str,
                         default=os.path.join(os.getcwd(),"saves"))
+    # load directory
+    parser.add_argument('--weights_dir', type=str,
+                        default=os.path.join(os.getcwd(),"saves"))
 
     parser.add_argument('--bestonly', action='store_true')
     parser.add_argument('--name', type=str, default='exp')
