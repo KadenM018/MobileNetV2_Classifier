@@ -22,7 +22,7 @@ if __name__ == '__main__':
 
     # hyperparameters
     parser.add_argument('--batchsize', type=int, default=32)
-    parser.add_argument('--lr', type=float, default=0.01)
+    parser.add_argument('--lr', type=float, default=0.0001)
     parser.add_argument('--epochs', type=int, default=15)
 
     # other
