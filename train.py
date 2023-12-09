@@ -69,7 +69,7 @@ if __name__ == '__main__':
 
         print(f'\n Epoch: {epoch}')
 
-        train_loss = torch.zeros(1, device=args.device)
+        train_loss = 0
         model.train()
 
         # Train model
@@ -85,13 +85,13 @@ if __name__ == '__main__':
 
             loss = criterion(out, labels)
 
-            train_loss += loss
+            train_loss += loss.detach().cpu().numpy()
 
             loss.backward()
             optimizer.step()
 
         # print(f'\ntrain_loss: {train_loss.detach().cpu().numpy()}')
-        train_l.append(train_loss.detach().cpu().numpy())
+        train_l.append(train_loss)
 
         # Test model on validation set
         with torch.no_grad():
@@ -157,7 +157,7 @@ if __name__ == '__main__':
             else:
                 f = open(file_dir, 'w')
 
-            f.write(f'train_loss: {train_loss.detach().cpu().numpy().item()}, '
+            f.write(f'train_loss: {train_loss}, '
                     f'val_loss: {val_loss.detach().cpu().numpy().item()}, val_acc: {val_accuracy.item()},'
                     f' f1_score: {fscore}\n\n')
             f.flush()
