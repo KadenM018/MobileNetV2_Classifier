@@ -17,7 +17,7 @@ if __name__ == '__main__':
     parser.add_argument('--test_dir', type=str, default=r"C:\Users\kaden\Downloads\ASL_digits\ASL Digits\test")
     parser.add_argument('--weights_dir', type=str, default=r"C:\Users\kaden\Main\CS678\final_project\1\weights\weights_1.pth")
     parser.add_argument('--in_channels', type=int, default=3)
-    parser.add_argument('--num_classes', type=int, default=10)
+    parser.add_argument('--num_classes', type=int, default=36)
 
     # hyperparameters
     parser.add_argument('--batchsize', type=int, default=16)
