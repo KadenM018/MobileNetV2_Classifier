@@ -48,15 +48,15 @@ if __name__ == '__main__':
     val_dataloader = DataLoader(val_dataset, args.batchsize, shuffle=False, num_workers=args.num_workers)
 
     model = MobileNetV2(args.in_channels, args.num_classes)
-    optimizer = torch.optim.SGD(model.parameters(), lr=args.lr)
+    optimizer = torch.optim.Adam(model.parameters(), lr=args.lr)
+
+    model.to(args.device)
 
     if args.resume:
         checkpoint = torch.load(args.resume_weights)
         model.load_state_dict(checkpoint['model'])
         optimizer.load_state_dict(checkpoint['optim'])
         print('Weights Loaded\n')
-
-    model.to(args.device)
 
     criterion = torch.nn.CrossEntropyLoss()
 
