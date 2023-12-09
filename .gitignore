@@ -2,3 +2,7 @@
 *.iml
 *.pyc
 idea/
+data/
+run*/
+saves/
+

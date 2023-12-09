@@ -24,7 +24,7 @@ def create_subset(dataset_folder, save_dir, ratio, op):
 
         # shuffle files so image selection is random
         files = os.listdir(folder_path)
-        random.shuffle(files)
+        random.Random(42).shuffle(files)
 
         # Calculate number of samples to move
         num = len(files)

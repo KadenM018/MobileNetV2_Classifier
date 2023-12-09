@@ -1,2 +1,2 @@
 #!/bin/sh
-LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libtcmalloc.so.4 python train_eval.py --data_path "dry_run_data/ASL" --bestonly --num_workers 4 --batchsize 20 --lr 0.01 --epochs 10 --name "testrun3"
+LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libtcmalloc.so.4 python train_eval.py --data_path "run8k/ASL" --bestonly --num_workers 4 --batchsize 64 --lr 0.01 --epochs 20 --name "run_20epoch_lr01_batch64"
