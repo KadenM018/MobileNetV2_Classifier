@@ -61,8 +61,9 @@ if __name__ == '__main__':
         test_l = []
         test_acc = []
         for data in tqdm(test_dataloader, desc='Testing MobileNetV2...'):
-            in_data = data[0].cuda()
-            labels = data[1].cuda()
+            in_data = data[0].to(args.device)
+            labels = data[1].to(args.device)
+
 
             for label in labels:
                 true_label.append(label.detach().cpu().numpy())
