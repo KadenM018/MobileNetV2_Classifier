@@ -68,7 +68,6 @@ with torch.no_grad():
         # draw some data on frame
         cv2.putText(frame, "best guess: {}".format(classes[pred]), (0, 60), cv2.FONT_HERSHEY_SIMPLEX, 2, (0, 0, 255), 1)
         cv2.putText(frame, "score: {:.3f}".format(score), (0, 80), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 1)
-        #cv2.rectangle(frame, (400, 150), (900, 550), (250, 0, 0), 2)
         cv2.imshow("Detection Result", frame)
 
         if cv2.waitKey(1) & 0xFF == ord('q'):
