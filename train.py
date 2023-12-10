@@ -15,24 +15,24 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
 
     # input data info
-    parser.add_argument('--train_dir', type=str, default=r"C:\Users\kaden\Main\CS678\final_project\sets\ASL")
-    parser.add_argument('--val_dir', type=str, default=r"C:\Users\kaden\Main\CS678\final_project\sets\0.1_test")
+    parser.add_argument('--train_dir', type=str, default='')
+    parser.add_argument('--val_dir', type=str, default='')
     parser.add_argument('--in_channels', type=int, default=3)
     parser.add_argument('--num_classes', type=int, default=36)
 
     # hyperparameters
-    parser.add_argument('--batchsize', type=int, default=32)
-    parser.add_argument('--lr', type=float, default=0.0001)
+    parser.add_argument('--batchsize', type=int, default=1)
+    parser.add_argument('--lr', type=float, default=0.01)
     parser.add_argument('--epochs', type=int, default=15)
 
     # other
-    parser.add_argument('--num_workers', type=int, default=4)
+    parser.add_argument('--num_workers', type=int, default=2)
     parser.add_argument('--device', type=str, default='cuda')
     parser.add_argument('--resume', type=bool, default=True)
-    parser.add_argument('--resume_weights', type=str, default=r"C:\Users\kaden\Main\CS678\final_project\tests\90-10_alldata_bs32_lr0.01\weights\weights_0.pth")
+    parser.add_argument('--resume_weights', type=str, default='')
 
     # save directories
-    parser.add_argument('--save_dir', type=str, default=r"C:\Users\kaden\Main\CS678\final_project\tests\90-10_alldata_bs32_lr0.01")
+    parser.add_argument('--save_dir', type=str, default='')
 
     args = parser.parse_args()
 

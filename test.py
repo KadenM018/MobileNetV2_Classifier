@@ -15,8 +15,8 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
 
     # input data info
-    parser.add_argument('--test_dir', type=str, default=r"C:\Users\kaden\Downloads\ASL_digits\ASL Digits\test")
-    parser.add_argument('--weights_dir', type=str, default=r"C:\Users\kaden\Main\CS678\final_project\1\weights\weights_1.pth")
+    parser.add_argument('--test_dir', type=str, default='')
+    parser.add_argument('--weights_dir', type=str, default='')
     parser.add_argument('--in_channels', type=int, default=3)
     parser.add_argument('--num_classes', type=int, default=36)
 
@@ -28,13 +28,14 @@ if __name__ == '__main__':
     parser.add_argument('--device', type=str, default='cuda')
 
     # save directories
-    parser.add_argument('--save_dir', type=str, default=r"C:\Users\kaden\Main\CS678\final_project\1")
+    parser.add_argument('--save_dir', type=str, default='')
 
     args = parser.parse_args()
 
     transform = torchvision.transforms.Compose([
         torchvision.transforms.ToTensor(),
-        torchvision.transforms.Resize((224, 224), antialias=True)
+        torchvision.transforms.Resize(224, antialias=True),
+        torchvision.transforms.CenterCrop(224)
     ])
 
     test_dataset = ImageFolder(args.test_dir, transform)
