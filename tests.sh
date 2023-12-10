@@ -1,7 +1,7 @@
 #!/bin/bash
 # List of arguments for each experiment
 experiments=(
-    "--data_path data/ASL_Test --weights_dir saves/exp05/weights/best_weights.pth --save_dir saves/test_results --num_workers 4 --name test_exp05"
+    "--data_path data/ASL_Test --weights_dir saves/expAll/weights/best_weights.pth --save_dir saves/test_results --num_workers 4 --name test_expAll"
     # Add more experiments as needed
 )
 
